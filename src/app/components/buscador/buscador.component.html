@@ -1,0 +1,16 @@
+<h1>Buscador: <small>{{termino}}</small></h1>
+<hr>
+<div class="row" *ngIf="cursos.length == 0">
+    <div class="col-md-12">
+        <div class="alert alert-info" role="alert">
+            No existen resusltados con el termino {{termino}}
+
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <!-- <app-heroe-tarjeta [heroe]="heroe" [index]="heroe.idx"   *ngFor="let heroe of heroes"></app-heroe-tarjeta> -->
+    <app-cursotarjeta cursoSelecionado="verCurso($event)" [curso]="curso" [index]="curso.idx" *ngFor="let curso of cursos"></app-cursotarjeta>
+
+</div>

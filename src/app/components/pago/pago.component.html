@@ -1,0 +1,238 @@
+<div class="contenido w-100">
+    <div class="row">
+        <div class="col-xs-1 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+
+        </div>
+        <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 col-xl-8 carta">
+            <div class="contenedor">
+                <div class="pago">
+
+                    <div class="card border-primary w-100 ">
+                        <div class="pago">
+                            <div class="carta">
+                                <img src="assets/img/kushki.png" class="img-fluid" style="height: 150px;text-align: center;" alt="">
+                            </div>
+                            <form [formGroup]="firstFormGroup" (ngSubmit)="onUpload(firstFormGroup)">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-label>Nombres</mat-label>
+                                                <input matInput type="text" placeholder="Ingrese su correo " [errorStateMatcher]="matcher" formControlName="nombre" maxlength="30" required>
+                                                <mat-error *ngIf="firstFormGroup.controls['nombre'].errors?.required">
+                                                    {{errors.nameCli}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['nombre'].errors?.pattern">
+                                                    {{errors.namecardfor}}
+                                                </mat-error>
+
+
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-label>Apellidos</mat-label>
+                                                <input matInput type="text" placeholder="Ingrese su correo" formControlName="apellido" [errorStateMatcher]="matcher" maxlength="30" required>
+                                                <mat-error *ngIf="firstFormGroup.controls['apellido'].errors?.required">
+                                                    {{errors.apellido}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['apellido'].errors?.pattern">
+                                                    {{errors.namecardfor}}
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-label>Correo Electronico</mat-label>
+                                                <input matInput type="email" placeholder="Ingrese su correo" [errorStateMatcher]="matcher" formControlName="email" required>
+                                                <mat-error *ngIf="firstFormGroup.controls['email'].errors?.required">
+                                                    {{errors.email}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['email'].errors?.pattern">
+                                                    {{errors.emailmal}}
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="w-50">
+
+                                                <mat-label>Tipo de documento:</mat-label>
+                                                <mat-select formControlName="ci" [errorStateMatcher]="matcher" required>
+                                                    <mat-option *ngFor="let dato of datos" [value]="dato">{{dato}}</mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="firstFormGroup.controls['ci'].errors?.required">
+                                                    {{errors.doc}}
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="w-50">
+                                                <mat-label>Documento</mat-label>
+                                                <input matInput type="text" placeholder="Ingrese documento " [errorStateMatcher]="matcher" formControlName="documento" maxlength="20" required>
+                                                <mat-error *ngIf="firstFormGroup.controls['documento'].errors?.required">
+                                                    {{errors.docu}}
+                                                </mat-error>
+
+
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-sm">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <p class="text-muted">Curso:</p>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <p class="text-muted">{{curso.nombre}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm">
+                                                        <p class="text-muted">Precio a pagar:</p>
+                                                    </div>
+                                                    <div class="col-sm">
+                                                        <p class="text-muted">{{curso.precio|currency}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-label>Nombre en la tarjeta</mat-label>
+                                                <input matInput placeholder="titulo" formControlName="nameCard" [errorStateMatcher]="matcher" maxlength="30" required>
+                                                <mat-icon matSuffix>account_circle</mat-icon>
+                                                <mat-error *ngIf="firstFormGroup.controls['nameCard'].errors?.required">
+                                                    {{errors.namecard}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['nameCard'].errors?.pattern">
+                                                    {{errors.namecardfor}}
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="w-100">
+                                                <mat-label>Número de tarjeta</mat-label>
+                                                <input matInput placeholder="titulo" type="text" formControlName="numberCard" [errorStateMatcher]="matcher" maxlength="16" required>
+                                                <mat-icon matSuffix>credit_card</mat-icon>
+                                                <mat-error *ngIf="firstFormGroup.controls['numberCard'].errors?.required">
+                                                    {{errors.numcard}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['numberCard'].errors?.pattern">
+                                                    {{errors.codcardnum}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['numberCard'].errors?.maxlength">
+                                                    {{errors.numcardmax}}
+                                                </mat-error>
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" class="w-50">
+                                                <mat-label>Fecha de vencimiento</mat-label>
+                                                <input matInput [matDatepicker]="dp" formControlName="expiryMonthYear">
+                                                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                                                <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+                                                </mat-datepicker>
+                                                <mat-error *ngIf="firstFormGroup.controls['numberCard'].errors?.required">
+                                                    {{errors.expcard}}
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="outline" class="w-50">
+                                                <mat-label>Código de seguridad</mat-label>
+                                                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Ingrese el código" [errorStateMatcher]="matcher" formControlName="cvvCard" maxlength="4" required>
+                                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                          <mat-icon>{{hide ? 'lock_open' : 'https'}}</mat-icon>
+                          </button>
+                                                <mat-error *ngIf="firstFormGroup.controls['cvvCard'].errors?.required">
+                                                    {{errors.codcard}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['cvvCard'].errors?.minlength">
+                                                    {{errors.codcardmin}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['cvvCard'].errors?.maxlength">
+                                                    {{errors.codcardmax}}
+                                                </mat-error>
+                                                <mat-error *ngIf="firstFormGroup.controls['cvvCard'].errors?.pattern">
+                                                    {{errors.codcardnum}}
+                                                </mat-error>
+                                            </mat-form-field>
+
+                                            <div class="d-grid gap-2">
+                                                <button class="btn btn-lg btn-primary" type="submit">Pagar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-xs-1 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+
+        </div>
+    </div>
+</div>
+
+
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1" [config]="{backdrop: 'static',  keyboard: false}">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="carta">
+                    <h4 class="text-info">Espere mientras se realiza la transacción...</h4>
+                </div>
+
+
+            </div>
+            <div class="carta" style="margin: 20px;">
+                <mat-spinner></mat-spinner>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div bsModal #exito="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="carta">
+                    <h4 class="text-info">Operación finalizada</h4>
+                </div>
+
+
+            </div>
+            <div class="carta" style="margin: 20px;">
+
+                <img src="assets/img/exito.png" class="img-fluid" style="height: 150px;text-align: center;" alt="">
+
+            </div>
+
+
+            <div class="overflow-auto" style="margin: 20px; height: 350px;">
+                {{mensaje|json}}
+            </div>
+            <div class="modal-body text-center">
+                <button type="button" class="btn btn-danger espaciado " (click)="regresar()">Regresar a Cursos</button>
+                <button type="button" class=" btn btn-success espaciado " (click)="reiniciar()">Repetir ejemplo</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #error="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="carta">
+                    <h4 class="text-danger">Operación finalizada</h4>
+
+                </div>
+
+
+            </div>
+            <div class="carta" style="margin: 20px;">
+
+                <img src="assets/img/close.png" class="img-fluid" style="height: 150px;text-align: center;" alt="">
+
+            </div>
+            <div class="carta" style="margin: 20px;">
+                <h2 class="text-danger">Transacción declinada.</h2>
+            </div>
+            <div class="modal-body text-center">
+                <button type="button" class="btn btn-danger espaciado " (click)="regresar()">Regresar a Cursos</button>
+                <button type="button" class=" btn btn-success espaciado " (click)="reiniciar()">Repetir ejemplo</button>
+            </div>
+        </div>
+    </div>
+</div>

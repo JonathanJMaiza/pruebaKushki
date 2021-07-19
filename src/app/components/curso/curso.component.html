@@ -1,0 +1,40 @@
+<h1>{{curso.nombre | uppercase }} <small> {{curso.precio| currency}}</small></h1>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <img [src]="curso.img" class="img-fluid" [alt]="curso.nombre">
+        <br><br>
+        <div class=" conatiner w-100">
+            <div class="row">
+                <a (click)="regresar()" class="btn btn-outline-danger w-50">REGRESARAS</a>
+
+                <button type="button" class="btn btn-outline-success w-50" style="padding-left: 2px;" (click)="pagar()">Comprar</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div>
+            <h3>{{curso.nombre}}</h3>
+            <hr>
+            <p>
+                {{curso.descripcion}}</p>
+
+
+        </div>
+        <div class="conatiner w-100">
+            <div class="row">
+                <div style="display: flex;">
+                    <img [src]="curso.perfil" [alt]="curso.creador" style="width: 30px;height: 30px;display: flex;">
+                    <div style="margin-left: 5px;">
+                        <p>{{curso.creador}}</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <p class="text-success">{{curso.precio| currency}}</p>
+    </div>
+
+</div>
